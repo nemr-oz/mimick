@@ -1,0 +1,200 @@
+.memoryEnd {
+  position: relative;
+  overflow: hidden;
+
+  width: 100vw;
+  height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(20, 40, 90, 0.22),
+      transparent 55%
+    ),
+    #02040a;
+
+  color: #b8c8ff;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  padding: 0 0 7vh;
+  box-sizing: border-box;
+
+  font-family:
+    "MS Gothic",
+    "Yu Gothic",
+    Consolas,
+    monospace;
+}
+
+.memoryEnd::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.04) 0px,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+
+  opacity: 0.32;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.memoryEnd::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      rgba(20, 40, 120, 0.08),
+      rgba(0, 0, 0, 0.34)
+    );
+
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.memoryEndGirl {
+  position: absolute;
+
+  left: 50%;
+  top: 43%;
+
+  transform: translate(-50%, -50%);
+
+  height: 74vh;
+
+  opacity: 0.58;
+
+  pointer-events: none;
+
+  filter:
+    grayscale(0.45)
+    contrast(1.25)
+    brightness(0.82)
+    drop-shadow(2px 0 rgba(90, 130, 255, 0.28))
+    drop-shadow(-2px 0 rgba(255, 80, 120, 0.12));
+
+  z-index: 1;
+}
+
+.memoryEndBox {
+  position: relative;
+  z-index: 2;
+
+  width: min(760px, 86vw);
+  min-height: 220px;
+
+  border: 1px solid rgba(130, 160, 255, 0.38);
+  background:
+    linear-gradient(
+      rgba(5, 12, 32, 0.92),
+      rgba(2, 4, 14, 0.94)
+    );
+
+  padding: 24px 28px;
+  box-sizing: border-box;
+
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 0 24px rgba(40, 80, 180, 0.24),
+    inset 0 0 28px rgba(10, 30, 90, 0.42);
+}
+
+.memoryEndSpeaker {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: #7f9dff;
+  margin-bottom: 18px;
+  text-shadow: 1px 0 rgba(255, 80, 120, 0.22);
+}
+
+.memoryEndText {
+  font-size: 20px;
+  line-height: 2;
+  letter-spacing: 0.06em;
+  white-space: pre-wrap;
+
+  text-shadow:
+    1px 0 rgba(255, 80, 120, 0.16),
+    -1px 0 rgba(80, 160, 255, 0.18);
+}
+
+.memoryEnd-system .memoryEndText {
+  font-family: Consolas, "MS Gothic", monospace;
+  color: #8fb6ff;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+.memoryEnd-end {
+  align-items: center;
+  padding: 0;
+}
+
+.memoryEnd-end .memoryEndBox {
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  text-align: center;
+}
+
+.memoryEnd-end .memoryEndText {
+  font-size: 32px;
+  letter-spacing: 0.24em;
+}
+
+.memoryEndChoices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.memoryEndChoices button {
+  background: rgba(0, 0, 0, 0.18);
+  border: 1px solid rgba(130, 160, 255, 0.36);
+
+  color: #b8c8ff;
+
+  padding: 11px 16px;
+
+  font-family: inherit;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+  text-align: left;
+
+  box-shadow:
+    inset 0 0 12px rgba(40, 80, 180, 0.16);
+}
+
+.memoryEndChoices button::before {
+  content: "> ";
+}
+
+.memoryEndChoices button:hover {
+  background: rgba(80, 110, 255, 0.13);
+  color: #e1e8ff;
+}
+
+.memoryEndHint {
+  margin-top: 22px;
+
+  font-size: 11px;
+  letter-spacing: 0.16em;
+
+  color: rgba(184, 200, 255, 0.42);
+}
+

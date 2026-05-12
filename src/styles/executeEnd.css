@@ -1,0 +1,84 @@
+/* 少女 */
+.executeGirl {
+  position: absolute;
+
+  left: 50%;
+  top: 44%;
+
+  transform: translate(-50%, -50%);
+
+  height: 74vh;
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+/* 動画 */
+.executeVideo {
+  position: absolute;
+
+  left: 50%;
+  top: 44%;
+
+  transform: translate(-50%, -50%);
+
+  width: 74vh;
+  height: 74vh;
+
+  object-fit: contain;
+
+  z-index: 9999;
+}
+
+.executeBox {
+  position: absolute;
+
+  left: 50%;
+  top: 78%;
+
+  transform: translate(-50%, -50%);
+
+  z-index: 2;
+
+  width: min(760px, 86vw);
+  min-height: 220px;
+
+  border: 1px solid rgba(130, 160, 255, 0.38);
+
+  background:
+    linear-gradient(
+      rgba(5, 12, 32, 0.92),
+      rgba(2, 4, 14, 0.94)
+    );
+
+  padding: 24px 28px;
+  box-sizing: border-box;
+
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 0 24px rgba(40, 80, 180, 0.24),
+    inset 0 0 28px rgba(10, 30, 90, 0.42);
+}
+.executeSpeaker {
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  color: #7f9dff;
+
+  margin-bottom: 18px;
+
+  text-shadow:
+    1px 0 rgba(255, 80, 120, 0.22);
+}
+
+.executeText {
+  font-size: 20px;
+  line-height: 2;
+  letter-spacing: 0.06em;
+
+  white-space: pre-wrap;
+
+  text-shadow:
+    1px 0 rgba(255, 80, 120, 0.16),
+    -1px 0 rgba(80, 160, 255, 0.18);
+}

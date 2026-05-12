@@ -1,0 +1,101 @@
+/* =========================
+   GIRL
+========================= */
+
+.girl {
+  position: absolute;
+
+  left: 50%;
+  top: 44%;
+
+  transform: translate(-50%, -50%);
+
+  height: 74vh;
+
+  opacity: 0.92;
+
+  pointer-events: none;
+
+  filter:
+    drop-shadow(
+      0 0 12px rgba(47, 103, 216, 0.08)
+    )
+    contrast(1.02);
+}
+
+/* =========================
+   SENTENCE
+========================= */
+
+.sentence {
+  position: absolute;
+
+  bottom: 7%;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 日本語 */
+
+.jp {
+  margin: 0 0 6px;
+
+  color: #d8cfc0;
+
+  font-size: 26px;
+
+  line-height: 1.9;
+
+  letter-spacing: 0.08em;
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 0 6px rgba(0, 0, 0, 0.45),
+    0 0 12px rgba(47, 103, 216, 0.08);
+}
+
+/* ローマ字 */
+
+.romaji {
+  margin: 0;
+
+  color: #d8cfc0;
+
+  font-size: 22px;
+
+  letter-spacing: 0.06em;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  line-height: 1.8;
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.romaji .typed {
+  color: #2f67d8;
+}
+
+.romaji .current {
+  color: #7fa8ff;
+
+  text-decoration: underline;
+}
+
+.space {
+  opacity: 0.4;
+}

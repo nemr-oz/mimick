@@ -7,8 +7,10 @@ function Girl({
 }: GirlProps) {
   return (
     <img
-      src={`${import.meta.env.BASE_URL}girl.png`}
       className={className}
+      src={`${import.meta.env.BASE_URL}girl.png`}
+      alt=""
+      draggable={false}
     />
   );
 }

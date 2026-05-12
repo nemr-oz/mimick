@@ -3,15 +3,15 @@ import Girl from "./components/Girl";
 import recordLines from "./data/recordLines";
 
 type RecordProps = {
-  chapter: number;
+  sequence: number;
   onFinish: () => void;
 };
 
 function Record({
-  chapter,
+  sequence,
   onFinish,
 }: RecordProps) {
-  const record = recordLines[chapter];
+  const record = recordLines[sequence];
 
   if (!record) {
     return null;
@@ -37,7 +37,7 @@ function Record({
   useEffect(() => {
     setIndex(0);
     setVisibleText("");
-  }, [chapter]);
+  }, [sequence]);
 
   useEffect(() => {
     setVisibleText("");
@@ -92,7 +92,6 @@ function Record({
       e: KeyboardEvent
     ) => {
       if (auto) return;
-
       if (e.key !== "Enter") return;
 
       next();

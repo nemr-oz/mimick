@@ -1,0 +1,28 @@
+.end {
+  background: #020302;
+}
+
+.endSentence {
+  bottom: 8%;
+  z-index: 5;
+}
+
+.endMessage {
+  margin: 0;
+
+  color: #d8cfc0;
+
+  font-size: 18px;
+
+  letter-spacing: 0.18em;
+
+  font-family:
+    "MS Mincho",
+    "Yu Mincho",
+    serif;
+
+  text-shadow:
+    0 0 8px rgba(216, 207, 192, 0.35);
+
+  animation: pulse 3s infinite;
+}

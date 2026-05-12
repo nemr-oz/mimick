@@ -1,0 +1,101 @@
+.loopEndScene {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(36, 52, 97, 0.14),
+      transparent 58%
+    ),
+    #050608;
+}
+
+.loopEndBox {
+  width: min(900px, 92vw);
+
+  text-align: center;
+}
+
+.loopLine {
+  margin: 0;
+
+  color: #d5d0c6;
+
+  font-size: 28px;
+  line-height: 2;
+
+  letter-spacing: 0.08em;
+
+  font-family:
+    "MS Mincho",
+    "Yu Mincho",
+    serif;
+
+  text-shadow:
+    0 0 8px rgba(255,255,255,0.06),
+    0 0 16px rgba(66,104,255,0.08);
+}
+
+.loopFinal {
+  margin-top: 42px;
+
+  color: #aebdff;
+
+  font-size: 42px;
+
+  letter-spacing: 0.18em;
+
+  font-family:
+    "Yu Mincho",
+    "MS Mincho",
+    serif;
+
+  font-weight: 400;
+
+  text-shadow:
+    0 0 10px rgba(174,189,255,0.18),
+    0 0 28px rgba(70,100,255,0.12);
+}
+
+.loopRestart {
+  margin-top: 72px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: rgba(206, 214, 235, 0.78);
+
+  font-size: 13px;
+
+  letter-spacing: 0.22em;
+
+  font-family:
+    "Yu Mincho",
+    "MS Mincho",
+    serif;
+
+  cursor: pointer;
+
+  text-transform: lowercase;
+
+  text-shadow:
+    0 0 8px rgba(120,140,255,0.08);
+
+  transition:
+    opacity 0.25s ease,
+    color 0.25s ease;
+}
+
+.loopRestart:hover {
+  color: rgba(235, 240, 255, 0.96);
+}

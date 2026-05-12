@@ -390,3 +390,197 @@ body {
 
   animation: pulse 3s infinite;
 }
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+  .girl,
+  .introGirl {
+    top: 42%;
+    height: 62vh;
+  }
+
+  .sentence,
+  .introBox {
+    bottom: 8%;
+    width: 92vw;
+  }
+
+  .jp {
+    font-size: 18px;
+    line-height: 1.7;
+    white-space: normal;
+  }
+
+  .romaji {
+    font-size: 15px;
+    line-height: 1.6;
+    white-space: normal;
+    word-break: break-all;
+  }
+
+  .introLine,
+  .introEnter {
+    font-size: 17px;
+    line-height: 1.8;
+    white-space: normal;
+  }
+
+  .introHint {
+    font-size: 10px;
+    margin-top: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .girl,
+  .introGirl {
+    top: 40%;
+    height: 56vh;
+  }
+
+  .sentence,
+  .introBox {
+    bottom: 7%;
+    width: 94vw;
+  }
+
+  .jp {
+    font-size: 16px;
+  }
+
+  .romaji {
+    font-size: 14px;
+  }
+
+  .introLine,
+  .introEnter {
+    font-size: 16px;
+  }
+}
+
+.fakeConsole {
+  position: fixed;
+  left: 24px;
+  top: 24px;
+
+  width: min(560px, 92vw);
+
+  z-index: 9999;
+
+  background:
+    rgba(5, 8, 12, 0.92);
+
+  border:
+    1px solid rgba(120, 160, 255, 0.28);
+
+  box-shadow:
+    0 0 24px rgba(60, 110, 220, 0.12);
+
+  backdrop-filter: blur(3px);
+
+  overflow: hidden;
+
+  color: #9bbcff;
+
+  font-family:
+    Consolas,
+    "MS Gothic",
+    monospace;
+}
+
+.consoleHeader {
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 12px;
+
+  background:
+    rgba(255,255,255,0.03);
+
+  border-bottom:
+    1px solid rgba(120,160,255,0.15);
+
+  color: rgba(220,230,255,0.82);
+
+  font-size: 11px;
+
+  letter-spacing: 0.18em;
+}
+
+.consoleHeader button {
+  background: transparent;
+  border: none;
+
+  color: #8fb7ff;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  opacity: 0.7;
+}
+
+.consoleBody {
+  padding: 14px;
+
+  font-size: 13px;
+  line-height: 1.75;
+
+  position: relative;
+
+  text-shadow:
+    0 0 6px rgba(120,160,255,0.16);
+}
+
+.consoleBody::after {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.018) 0px,
+      rgba(255,255,255,0.018) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+
+  pointer-events: none;
+}
+
+.consoleBody p {
+  margin: 0 0 6px;
+}
+
+.consoleInput {
+  width: 80%;
+
+  background: transparent;
+  border: none;
+  outline: none;
+
+  color: #9bbcff;
+
+  font-family:
+    Consolas,
+    "MS Gothic",
+    monospace;
+
+  font-size: 13px;
+
+  caret-color: #9bbcff;
+}
+
+.consoleInput:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
