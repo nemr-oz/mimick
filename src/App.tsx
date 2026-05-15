@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useState,useEffect,} from "react";
 import type { ReactNode } from "react";
+
+import SystemMenu
+  from "./components/SystemMenu";
 
 import Intro from "./Intro";
 
@@ -7,8 +10,12 @@ import Chapter1 from "./chapters/Chapter1";
 import Chapter2Intro from "./chapters/Chapter2Intro";
 import Chapter2 from "./chapters/Chapter2";
 
+import EmotionTuner from "./EmotionTuner";
+import AmbientNoise from "./components/AmbientNoise";
+
 import Record from "./Record";
 import RecordJo from "./data/recordJo";
+
 import MaintenanceLog from "./MaintenanceLog";
 import FakeConsole from "./FakeConsole";
 
@@ -16,6 +23,9 @@ import LoopEnd from "./endings/LoopEnd";
 import ExecuteEnd from "./endings/ExecuteEnd";
 import MemoryEnd from "./endings/MemoryEnd";
 import ObserverEnd from "./endings/ObserverEnd";
+import ShutdownEnd from "./endings/ShutdownEnd";
+
+import DebugMenu from "./components/DebugMenu";
 
 import { useDebugCommands } from "./hooks/useDebugCommands";
 
@@ -26,6 +36,7 @@ import "./styles/end.css";
 import "./styles/console.css";
 import "./styles/maintenanceLog.css";
 import "./styles/memoryEnd.css";
+import "./styles/shutdownEnd.css";
 
 export type Scene =
   | "intro"
@@ -35,13 +46,16 @@ export type Scene =
   | "maintenance"
   | "consoleChapter2Start"
   | "chapter2Intro"
+  | "emotionTuner"
   | "consoleEndingChoice"
   | "memoryEnd"
   | "observerEnd"
+  | "shutdownEnd"
   | "loopEnd"
   | "executeEnd";
 
 function App() {
+
   const [scene, setScene] =
     useState<Scene>("intro");
 
@@ -51,6 +65,60 @@ function App() {
   const [showDebug, setShowDebug] =
     useState(false);
 
+  const [showSystemMenu, setShowSystemMenu] =
+  useState(false);
+
+  const fragments = [
+  {
+    id: "memory_01",
+    title: "残留記憶片_01",
+    text: "あなたは、ここにいた。",
+    unlocked: true,
+  },
+
+  {
+    id: "memory_02",
+    title: "残留記憶片_02",
+    text: "記録は途中で途切れている。",
+    unlocked: false,
+  },
+];
+
+useEffect(() => {
+
+  const handleKeyDown = (
+    e: KeyboardEvent
+  ) => {
+
+    if (e.key === "Escape") {
+
+      setShowSystemMenu(
+        (prev) => !prev
+      );
+
+    }
+
+  };
+
+  window.addEventListener(
+    "keydown",
+    handleKeyDown
+  );
+
+  return () => {
+
+    window.removeEventListener(
+      "keydown",
+      handleKeyDown
+    );
+
+  };
+
+}, []);
+
+const [bgmVolume, setBgmVolume] =
+  useState(0.5);
+
   useDebugCommands({
     showDebug,
     setShowDebug,
@@ -58,9 +126,12 @@ function App() {
     setSequence,
   });
 
+
+  
   let content: ReactNode;
 
   if (scene === "intro") {
+
     content = (
       <Intro
         onFinish={() => {
@@ -68,8 +139,13 @@ function App() {
         }}
       />
     );
-  } else if (scene === "game") {
+
+  }
+
+  else if (scene === "game") {
+
     if (sequence < 6) {
+
       content = (
         <Chapter1
           sequence={sequence}
@@ -78,7 +154,9 @@ function App() {
           }}
         />
       );
+
     } else {
+
       content = (
         <Chapter2
           sequence={sequence}
@@ -87,38 +165,61 @@ function App() {
           }}
         />
       );
+
     }
-  } else if (scene === "record") {
+
+  }
+
+  else if (scene === "record") {
+
     if (sequence >= 6) {
+
       content = (
         <RecordJo
           sequence={sequence}
           onFinish={() => {
             if (sequence < 8) {
+
               setSequence((prev) => prev + 1);
+
               setScene("game");
+
             } else {
+
               setScene("consoleEndingChoice");
+
             }
           }}
         />
       );
+
     } else {
+
       content = (
         <Record
           sequence={sequence}
           onFinish={() => {
             if (sequence < 5) {
+
               setSequence((prev) => prev + 1);
+
               setScene("game");
+
             } else {
+
               setScene("consoleChapter1End");
+
             }
           }}
         />
       );
+
     }
-  } else if (scene === "consoleChapter1End") {
+
+  }
+
+  else if (scene === "consoleChapter1End") {
+
     content = (
       <FakeConsole
         phase="chapter1End"
@@ -127,7 +228,11 @@ function App() {
         }}
       />
     );
-  } else if (scene === "maintenance") {
+
+  }
+
+  else if (scene === "maintenance") {
+
     content = (
       <MaintenanceLog
         onFinish={() => {
@@ -135,7 +240,11 @@ function App() {
         }}
       />
     );
-  } else if (scene === "consoleChapter2Start") {
+
+  }
+
+  else if (scene === "consoleChapter2Start") {
+
     content = (
       <FakeConsole
         phase="chapter2Start"
@@ -144,16 +253,36 @@ function App() {
         }}
       />
     );
-  } else if (scene === "chapter2Intro") {
+
+  }
+
+  else if (scene === "chapter2Intro") {
+
     content = (
       <Chapter2Intro
+        onFinish={() => {
+          setScene("emotionTuner");
+        }}
+      />
+    );
+
+  }
+
+  else if (scene === "emotionTuner") {
+
+    content = (
+      <EmotionTuner
         onFinish={() => {
           setSequence(6);
           setScene("game");
         }}
       />
     );
-  } else if (scene === "consoleEndingChoice") {
+
+  }
+
+  else if (scene === "consoleEndingChoice") {
+
     content = (
       <FakeConsole
         phase="endingChoice"
@@ -167,15 +296,33 @@ function App() {
           setScene("loopEnd");
         }}
         onForbidden={() => {
-          setScene("executeEnd");
+          setScene("shutdownEnd");
         }}
       />
     );
-  } else if (scene === "memoryEnd") {
+
+  }
+
+  else if (scene === "memoryEnd") {
+
     content = <MemoryEnd />;
-  } else if (scene === "observerEnd") {
+
+  }
+
+  else if (scene === "observerEnd") {
+
     content = <ObserverEnd />;
-  } else if (scene === "loopEnd") {
+
+  }
+
+  else if (scene === "shutdownEnd") {
+
+    content = <ShutdownEnd />;
+
+  }
+
+  else if (scene === "loopEnd") {
+
     content = (
       <LoopEnd
         onRestart={() => {
@@ -184,38 +331,51 @@ function App() {
         }}
       />
     );
-  } else {
+
+  }
+
+  else {
+
     content = (
       <ExecuteEnd
-        onRestart={() => {
+        onFinish={() => {
           setSequence(0);
           setScene("intro");
         }}
       />
     );
+
   }
 
-  return (
+return (
+
+  <>
+
     <div className="app">
+
+      <AmbientNoise />
+
       {content}
 
       {showDebug && (
-        <div className="debugMenu">
-          <p>DEBUG MENU</p>
-          <p>1 : intro</p>
-          <p>2 : consoleChapter1End</p>
-          <p>3 : maintenance</p>
-          <p>4 : consoleChapter2Start</p>
-          <p>5 : chapter2Intro</p>
-          <p>6 : game / Chapter2</p>
-          <p>7 : consoleEndingChoice</p>
-          <p>8 : memoryEnd</p>
-          <p>9 : observerEnd</p>
-          <p>0 : loopEnd</p>
-        </div>
+        <DebugMenu />
       )}
+
     </div>
-  );
+
+   <SystemMenu
+  isOpen={showSystemMenu}
+  onClose={() =>
+    setShowSystemMenu(false)
+  }
+  bgmVolume={bgmVolume}
+  setBgmVolume={setBgmVolume}
+  fragments={fragments}
+/>
+  </>
+
+);
+
 }
 
 export default App;

@@ -1,0 +1,270 @@
+.shutdownEnd {
+  position: relative;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  background: #000;
+
+  color: #d8cfc0;
+
+  cursor: pointer;
+
+  font-family:
+    "MS Gothic",
+    "Yu Gothic",
+    Consolas,
+    monospace;
+}
+
+/* scanline */
+
+.shutdownEnd::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.025) 0px,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+
+  opacity: 0.22;
+
+  pointer-events: none;
+
+  z-index: 5;
+}
+
+/* girl */
+
+.shutdownEndGirl {
+  position: absolute;
+
+  left: 50%;
+  top: 43%;
+
+  transform: translate(-50%, -50%);
+
+  height: 74vh;
+
+  opacity: 0.55;
+
+  pointer-events: none;
+
+  filter:
+    grayscale(0.55)
+    contrast(1.1)
+    brightness(0.72);
+
+  z-index: 1;
+
+  animation: shutdownGirlIn 1.2s ease both;
+}
+
+/* box */
+
+.shutdownEndBox {
+  position: absolute;
+
+  left: 50%;
+  bottom: 10%;
+
+  transform: translateX(-50%);
+
+  width: min(760px, 86vw);
+
+  padding: 24px 28px;
+  box-sizing: border-box;
+
+  z-index: 2;
+
+  background: rgba(0, 0, 0, 0.42);
+
+  border: 1px solid rgba(216, 207, 192, 0.24);
+
+  box-shadow: none;
+
+  animation: shutdownBoxIn 0.9s ease both;
+}
+
+.shutdownEndSpeaker {
+  margin-bottom: 18px;
+
+  color: rgba(216, 207, 192, 0.42);
+
+  font-size: 13px;
+
+  letter-spacing: 0.16em;
+}
+
+.shutdownEndText {
+  margin: 0;
+
+  color: #d8cfc0;
+
+  font-size: 22px;
+
+  line-height: 2;
+
+  letter-spacing: 0.06em;
+
+  white-space: pre-wrap;
+
+  text-shadow:
+    0 0 6px rgba(0, 0, 0, 0.72);
+
+  animation: shutdownTextIn 0.7s ease both;
+}
+
+.shutdownEnd-system .shutdownEndText {
+  font-size: 18px;
+
+  line-height: 1.8;
+
+  font-family:
+    Consolas,
+    "MS Gothic",
+    monospace;
+}
+
+.shutdownEndHint {
+  margin-top: 22px;
+
+  color: rgba(216, 207, 192, 0.28);
+
+  font-size: 11px;
+
+  letter-spacing: 0.16em;
+
+  animation: pulse 2s infinite;
+}
+
+/* final */
+
+.shutdownEnd-end {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shutdownEnd-end .shutdownEndBox {
+  position: static;
+
+  transform: none;
+
+  width: auto;
+
+  padding: 0;
+
+  background: transparent;
+
+  border: none;
+
+  text-align: center;
+}
+
+.shutdownEnd-end .shutdownEndText {
+  font-size: 38px;
+
+  letter-spacing: 0.22em;
+
+  white-space: nowrap;
+
+  animation: shutdownEndTitleIn 1.4s ease both;
+}
+
+/* animation */
+
+@keyframes shutdownGirlIn {
+  from {
+    opacity: 0;
+
+    filter:
+      grayscale(0.8)
+      contrast(1.1)
+      brightness(0.35);
+  }
+
+  to {
+    opacity: 0.55;
+
+    filter:
+      grayscale(0.55)
+      contrast(1.1)
+      brightness(0.72);
+  }
+}
+
+@keyframes shutdownBoxIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0);
+  }
+}
+
+@keyframes shutdownTextIn {
+  from {
+    opacity: 0;
+
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0);
+  }
+}
+
+@keyframes shutdownEndTitleIn {
+  from {
+    opacity: 0;
+
+    letter-spacing: 0.34em;
+  }
+
+  to {
+    opacity: 1;
+
+    letter-spacing: 0.22em;
+  }
+}
+
+.shutdownEndGun {
+  position: absolute;
+
+  right: 0;
+  bottom: 0;
+
+  width: min(520px, 48vw);
+
+  pointer-events: none;
+
+  z-index: 4;
+
+  opacity: 0.92;
+
+  filter:
+    grayscale(0.25)
+    contrast(1.08)
+    brightness(0.9);
+}

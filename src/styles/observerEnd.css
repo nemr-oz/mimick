@@ -1,0 +1,132 @@
+.memoryEnd {
+  position: relative;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  background: #000;
+
+  color: #d8cfc0;
+
+  cursor: pointer;
+
+  font-family:
+    "MS Mincho",
+    "Yu Mincho",
+    serif;
+}
+
+.memoryEnd::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  opacity: 0.16;
+
+  pointer-events: none;
+
+  z-index: 3;
+}
+
+/* vignette削除 */
+
+.memoryEnd::after {
+  display: none;
+}
+
+.memoryEndBox {
+  position: relative;
+
+  z-index: 2;
+
+  width: min(760px, 86vw);
+
+  padding: 24px 28px;
+  box-sizing: border-box;
+
+  background: rgba(0, 0, 0, 0.42);
+
+  border: 1px solid rgba(216, 207, 192, 0.28);
+
+  box-shadow: none;
+}
+
+.memoryEndSpeaker {
+  margin-bottom: 20px;
+
+  color: rgba(216, 207, 192, 0.38);
+
+  font-size: 13px;
+
+  letter-spacing: 0.18em;
+}
+
+.memoryEndText {
+  margin: 0;
+
+  color: #d8cfc0;
+
+  font-size: 24px;
+
+  line-height: 2;
+
+  letter-spacing: 0.08em;
+
+  white-space: pre-line;
+
+}
+
+.memoryEndHint {
+  margin-top: 28px;
+
+  color: rgba(216, 207, 192, 0.24);
+
+  font-size: 11px;
+
+  letter-spacing: 0.18em;
+
+  animation: pulse 2s infinite;
+}
+
+.memoryEndGirl {
+  position: absolute;
+
+  left: 50%;
+  top: 43%;
+
+  transform: translate(-50%, -50%);
+
+  height: 76vh;
+
+  opacity: 0.72;
+
+  pointer-events: none;
+
+  filter:
+    grayscale(0.18)
+    contrast(0.92);
+
+  z-index: 1;
+}
+
+.memoryEnd-end {
+  background: #000;
+}
+
+.memoryEnd-end .memoryEndBox {
+  left: 50%;
+  bottom: 45%;
+
+  transform: translateX(-50%);
+
+  text-align: center;
+}
+
+.memoryEnd-end .memoryEndText {
+  font-size: 42px;
+
+  letter-spacing: 0.16em;
+}

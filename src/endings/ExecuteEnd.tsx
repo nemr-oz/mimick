@@ -7,6 +7,10 @@ type Line = {
   shot?: boolean;
 };
 
+type ExecuteEndProps = {
+  onFinish: () => void;
+};
+
 const lines: Line[] = [
   { speaker: "system", text: "> privileged layer access detected" },
   { speaker: "system", text: "> forbidden vocabulary confirmed" },
@@ -30,7 +34,9 @@ const lines: Line[] = [
   { speaker: "end", text: "EXECUTE END" },
 ];
 
-export default function ExecuteEnd() {
+export default function ExecuteEnd({
+  onFinish,
+}: ExecuteEndProps) {
   const [index, setIndex] = useState(0);
 
   const current = lines[index];
@@ -38,9 +44,12 @@ export default function ExecuteEnd() {
   const next = () => {
     if (current.shot) return;
 
-    setIndex((prev) =>
-      Math.min(prev + 1, lines.length - 1)
-    );
+    if (index >= lines.length - 1) {
+      onFinish();
+      return;
+    }
+
+    setIndex((prev) => prev + 1);
   };
 
   return (
@@ -50,19 +59,17 @@ export default function ExecuteEnd() {
       }`}
       onClick={next}
     >
-      {/* 少女 */}
       {current.speaker === "girl" && !current.shot && (
         <img
           src={`${import.meta.env.BASE_URL}girl.png`}
-          className="executeCenterX executeGirl"
+          className="executeGirl"
         />
       )}
 
-      {/* 動画 */}
       {current.shot && (
         <>
           <video
-            className="executeCenterX executeVideo"
+            className="executeVideo"
             src={`${import.meta.env.BASE_URL}videos/execute.mp4`}
             autoPlay
             muted
@@ -78,16 +85,13 @@ export default function ExecuteEnd() {
         </>
       )}
 
-      {/* UI */}
       <div className="executeBox">
         <div className="executeSpeaker">
           {current.speaker === "system" && "SYSTEM"}
           {current.speaker === "girl" && "羊の仮面の少女"}
         </div>
 
-        <p className="executeText">
-          {current.text}
-        </p>
+        <p className="executeText">{current.text}</p>
 
         {!current.shot && current.speaker !== "end" && (
           <div className="executeHint">

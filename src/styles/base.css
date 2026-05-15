@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background: #050704;
+  background: #000;
   overflow: hidden;
 
   font-family:
@@ -98,4 +98,16 @@ body {
   font-family: monospace;
   font-size: 14px;
   line-height: 1.8;
+}
+
+.storyText {
+  font-size: 26px;
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+
+  color: #d8cfc0;
+
+  text-shadow:
+    0 0 6px rgba(0, 0, 0, 0.45),
+    0 0 12px rgba(47, 103, 216, 0.08);
 }

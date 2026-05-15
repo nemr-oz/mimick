@@ -269,11 +269,11 @@ function Game({
         <Girl className="girl" />
 
         <div className="sentence">
-          <p className="jp">
+          <p className="jp storyText">
             {current.jp}
           </p>
 
-          <p className="romaji">
+          <p className="romaji storyText">
             {Array.from(displayRoma).map(
               (char, i) => {
                 let className = "";

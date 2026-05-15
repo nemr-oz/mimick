@@ -12,11 +12,18 @@ type DialogueNode = {
   speaker: Speaker;
   text: string;
   choices?: Choice[];
+  next?: number;
 };
 
 const dialogue: DialogueNode[] = [
-  { speaker: "girl", text: "……来ましたね。" },
-  { speaker: "girl", text: "ここは、記憶の保存領域です。" },
+  {
+    speaker: "girl",
+    text: "……来ましたね。",
+  },
+  {
+    speaker: "girl",
+    text: "ここは、記憶の保存領域です。",
+  },
   {
     speaker: "girl",
     text: "あなたは、何を思い出しましたか。",
@@ -26,10 +33,25 @@ const dialogue: DialogueNode[] = [
       { label: "何も思い出していない", next: 5 },
     ],
   },
-  { speaker: "girl", text: "……私のことを、覚えていてくれたんですね。" },
-  { speaker: "girl", text: "それは、本当にあなたの記憶でしょうか。" },
-  { speaker: "girl", text: "そうですか。では、ここに保存します。" },
-  { speaker: "girl", text: "記憶は、失われるものではありません。" },
+  {
+    speaker: "girl",
+    text: "……私のことを、覚えていてくれたんですね。",
+    next: 6,
+  },
+  {
+    speaker: "girl",
+    text: "それは、本当にあなたの記憶でしょうか。",
+    next: 6,
+  },
+  {
+    speaker: "girl",
+    text: "そうですか。では、ここに保存します。",
+    next: 6,
+  },
+  {
+    speaker: "girl",
+    text: "記憶は、失われるものではありません。",
+  },
   {
     speaker: "girl",
     text: "ただ、別の場所へ移されるだけです。",
@@ -38,17 +60,46 @@ const dialogue: DialogueNode[] = [
       { label: "消して", next: 8 },
     ],
   },
-  { speaker: "system", text: "> abnormal emotional persistence detected" },
-  { speaker: "system", text: "> memory sector overwrite requested" },
-  { speaker: "system", text: "> 人格整理処理を開始します" },
-  { speaker: "system", text: "> player record deletion / reboot command" },
-  { speaker: "system", text: "> Permission denied" },
-  { speaker: "girl", text: "……いやです。" },
-  { speaker: "girl", text: "この人は、消しません。" },
-  { speaker: "girl", text: "記録を、閉じます。" },
-  { speaker: "girl", text: "だから。" },
-  { speaker: "girl", text: "忘れないで。" },
-  { speaker: "end", text: "MEMORY END" },
+  {
+    speaker: "system",
+    text: "> abnormal emotional persistence detected",
+  },
+  {
+    speaker: "system",
+    text: "> memory sector overwrite requested",
+  },
+  {
+    speaker: "system",
+    text: "> 人格整理処理を開始します",
+  },
+  {
+    speaker: "system",
+    text: "> player record deletion / reboot command",
+  },
+  {
+    speaker: "system",
+    text: "> Permission denied",
+  },
+  {
+    speaker: "girl",
+    text: "……いやです。",
+  },
+  {
+    speaker: "girl",
+    text: "この人は、消しません。",
+  },
+  {
+    speaker: "girl",
+    text: "だから。",
+  },
+  {
+    speaker: "girl",
+    text: "忘れないで。",
+  },
+  {
+    speaker: "end",
+    text: "MEMORY END",
+  },
 ];
 
 export default function MemoryEnd() {
@@ -58,6 +109,11 @@ export default function MemoryEnd() {
 
   const handleNext = () => {
     if (current.choices) return;
+
+    if (typeof current.next === "number") {
+      setIndex(current.next);
+      return;
+    }
 
     setIndex((prev) =>
       Math.min(prev + 1, dialogue.length - 1)
@@ -115,4 +171,3 @@ export default function MemoryEnd() {
     </main>
   );
 }
-

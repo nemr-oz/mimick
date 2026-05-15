@@ -5,15 +5,9 @@
   width: 100vw;
   height: 100vh;
 
-  background:
-    radial-gradient(
-      circle at center,
-      rgba(20, 40, 90, 0.22),
-      transparent 55%
-    ),
-    #02040a;
+  background: #000;
 
-  color: #b8c8ff;
+  color: #d8cfc0;
 
   display: flex;
   align-items: flex-end;
@@ -31,37 +25,28 @@
 
 .memoryEnd::before {
   content: "";
+
   position: absolute;
   inset: 0;
 
   background:
     repeating-linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.04) 0px,
-      rgba(255, 255, 255, 0.04) 1px,
+      rgba(255, 255, 255, 0.03) 0px,
+      rgba(255, 255, 255, 0.03) 1px,
       transparent 2px,
       transparent 4px
     );
 
-  opacity: 0.32;
+  opacity: 0.18;
+
   pointer-events: none;
+
   z-index: 5;
 }
 
 .memoryEnd::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      rgba(20, 40, 120, 0.08),
-      rgba(0, 0, 0, 0.34)
-    );
-
-  mix-blend-mode: screen;
-  pointer-events: none;
-  z-index: 6;
+  display: none;
 }
 
 .memoryEndGirl {
@@ -80,104 +65,127 @@
 
   filter:
     grayscale(0.45)
-    contrast(1.25)
-    brightness(0.82)
-    drop-shadow(2px 0 rgba(90, 130, 255, 0.28))
-    drop-shadow(-2px 0 rgba(255, 80, 120, 0.12));
+    contrast(1.12)
+    brightness(0.82);
 
   z-index: 1;
 }
 
 .memoryEndBox {
   position: relative;
+
   z-index: 2;
 
   width: min(760px, 86vw);
-  min-height: 220px;
-
-  border: 1px solid rgba(130, 160, 255, 0.38);
-  background:
-    linear-gradient(
-      rgba(5, 12, 32, 0.92),
-      rgba(2, 4, 14, 0.94)
-    );
 
   padding: 24px 28px;
   box-sizing: border-box;
 
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.03),
-    0 0 24px rgba(40, 80, 180, 0.24),
-    inset 0 0 28px rgba(10, 30, 90, 0.42);
+  background: transparent;
+
+  border: none;
+
+  box-shadow: none;
 }
 
 .memoryEndSpeaker {
   font-size: 13px;
+
   letter-spacing: 0.14em;
-  color: #7f9dff;
+
+  color: rgba(216, 207, 192, 0.42);
+
   margin-bottom: 18px;
-  text-shadow: 1px 0 rgba(255, 80, 120, 0.22);
 }
 
 .memoryEndText {
-  font-size: 20px;
+  font-size: 22px;
+
   line-height: 2;
+
   letter-spacing: 0.06em;
+
   white-space: pre-wrap;
 
+  color: #d8cfc0;
+
   text-shadow:
-    1px 0 rgba(255, 80, 120, 0.16),
-    -1px 0 rgba(80, 160, 255, 0.18);
+    0 0 6px rgba(0, 0, 0, 0.72);
 }
 
 .memoryEnd-system .memoryEndText {
-  font-family: Consolas, "MS Gothic", monospace;
-  color: #8fb6ff;
-  font-size: 16px;
+  font-family:
+    "MS Gothic",
+    "Yu Gothic",
+    monospace;
+
+  color: #d8cfc0;
+
+  font-size: 18px;
+
   line-height: 1.8;
 }
 
 .memoryEnd-end {
   align-items: center;
+  justify-content: center;
+
   padding: 0;
 }
 
 .memoryEnd-end .memoryEndBox {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+  bottom: auto;
+
+  transform: translate(-50%, -50%);
+
+  width: auto;
+
+  text-align: center;
+
   border: none;
   background: transparent;
   box-shadow: none;
-  text-align: center;
 }
 
 .memoryEnd-end .memoryEndText {
   font-size: 32px;
+
   letter-spacing: 0.24em;
+
+  white-space: nowrap;
 }
 
 .memoryEndChoices {
   display: flex;
   flex-direction: column;
+
   gap: 10px;
+
   margin-top: 26px;
 }
 
 .memoryEndChoices button {
-  background: rgba(0, 0, 0, 0.18);
-  border: 1px solid rgba(130, 160, 255, 0.36);
+  background: transparent;
 
-  color: #b8c8ff;
+  border: none;
 
-  padding: 11px 16px;
+  color: #d8cfc0;
+
+  padding: 0;
 
   font-family: inherit;
+
   font-size: 15px;
+
   letter-spacing: 0.08em;
 
   cursor: pointer;
-  text-align: left;
 
-  box-shadow:
-    inset 0 0 12px rgba(40, 80, 180, 0.16);
+  text-align: left;
 }
 
 .memoryEndChoices button::before {
@@ -185,16 +193,63 @@
 }
 
 .memoryEndChoices button:hover {
-  background: rgba(80, 110, 255, 0.13);
-  color: #e1e8ff;
+  opacity: 0.72;
 }
 
 .memoryEndHint {
   margin-top: 22px;
 
   font-size: 11px;
+
   letter-spacing: 0.16em;
 
-  color: rgba(184, 200, 255, 0.42);
+  color: rgba(216, 207, 192, 0.28);
 }
 
+.memoryEndChoices {
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+  margin-top: 30px;
+}
+
+.memoryEndChoices button {
+  background: rgba(255, 255, 255, 0.03);
+
+  border: 1px solid rgba(216, 207, 192, 0.18);
+
+  color: #d8cfc0;
+
+  padding: 14px 18px;
+
+  font-family:
+    "MS Gothic",
+    "Yu Gothic",
+    monospace;
+
+  font-size: 15px;
+
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  transition:
+    background 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.memoryEndChoices button::before {
+  content: "> ";
+
+  opacity: 0.72;
+}
+
+.memoryEndChoices button:hover {
+  background: rgba(255, 255, 255, 0.08);
+
+  opacity: 0.92;
+}

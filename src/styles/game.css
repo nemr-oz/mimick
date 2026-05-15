@@ -13,14 +13,10 @@
   height: 74vh;
 
   opacity: 0.92;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
 
   pointer-events: none;
-
-  filter:
-    drop-shadow(
-      0 0 12px rgba(47, 103, 216, 0.08)
-    )
-    contrast(1.02);
 }
 
 /* =========================
@@ -49,7 +45,7 @@
 
   color: #d8cfc0;
 
-  font-size: 26px;
+  font-size: 22px;
 
   line-height: 1.9;
 
@@ -62,14 +58,12 @@
     0 0 12px rgba(47, 103, 216, 0.08);
 }
 
-/* ローマ字 */
-
 .romaji {
   margin: 0;
 
   color: #d8cfc0;
 
-  font-size: 22px;
+  font-size: 18px;
 
   letter-spacing: 0.06em;
 

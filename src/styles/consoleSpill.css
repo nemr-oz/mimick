@@ -1,0 +1,27 @@
+.consoleSpill {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 540px;
+
+  transform: translate(-50%, -50%);
+
+  font-family:
+    "Times New Roman",
+    serif;
+
+  font-size: 18px;
+  line-height: 0.82;
+
+  color: rgba(220, 214, 200, 0.22);
+
+  white-space: pre-wrap;
+
+  letter-spacing: -0.04em;
+
+  pointer-events: none;
+
+  z-index: 1;
+}

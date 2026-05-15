@@ -1,0 +1,82 @@
+.chapter2Dialogue {
+  width: 100vw;
+  height: 100vh;
+  background: #030403;
+  color: #e8dfcf;
+  position: relative;
+  overflow: hidden;
+  font-family:
+    "MS Mincho",
+    "Yu Mincho",
+    serif;
+}
+
+.chapter2Girl {
+  position: absolute;
+  left: 50%;
+  top: 43%;
+  transform: translate(-50%, -50%);
+  height: 74vh;
+  opacity: 0.72;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.chapter2Panel {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  transform: translateX(-50%);
+  width: min(76vw, 880px);
+  padding: 22px 28px 28px;
+  box-sizing: border-box;
+  border: 1px solid rgba(232, 223, 207, 0.28);
+  background: rgba(0, 0, 0, 0.62);
+  z-index: 10;
+}
+
+.chapter2Speaker {
+  margin: 0 0 22px;
+  font-size: 14px;
+  color: rgba(232, 223, 207, 0.55);
+  letter-spacing: 0.12em;
+}
+
+.chapter2Text {
+  margin: 0 0 28px;
+  font-size: 26px;
+  line-height: 1.8;
+  letter-spacing: 0.08em;
+  color: #f0e6d6;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.08);
+}
+
+.chapter2Choices {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chapter2ChoiceButton {
+  width: 100%;
+  padding: 13px 18px;
+  border: 1px solid rgba(232, 223, 207, 0.22);
+  background: rgba(0, 0, 0, 0.35);
+  color: #e8dfcf;
+  font-family: inherit;
+  font-size: 16px;
+  text-align: left;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.chapter2ChoiceButton::before {
+  content: "〉";
+  margin-right: 10px;
+  color: rgba(232, 223, 207, 0.75);
+}
+
+.chapter2ChoiceButton:hover {
+  background: rgba(232, 223, 207, 0.08);
+  border-color: rgba(232, 223, 207, 0.45);
+}

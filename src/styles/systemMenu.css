@@ -1,0 +1,155 @@
+.systemMenuOverlay {
+  position: fixed;
+  inset: 0;
+
+  z-index: 99999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(0, 0, 0, 0.72);
+
+  font-family:
+    "Times New Roman",
+    "Yu Mincho",
+    serif;
+}
+
+.systemMenuPanel {
+  position: relative;
+
+  width: 420px;
+  max-width: calc(100vw - 48px);
+
+  padding: 34px 32px 28px;
+
+  overflow: hidden;
+
+  color: #d8cfc0;
+
+  background: rgba(5, 7, 4, 0.92);
+  border: 1px solid rgba(216, 207, 192, 0.28);
+
+  box-shadow:
+    0 0 50px rgba(0, 0, 0, 0.9);
+
+  z-index: 1;
+}
+
+.systemMenuBackground {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  width: 0;
+  height: 0;
+
+  z-index: 0;
+  pointer-events: none;
+}
+
+.systemMenuWord {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  white-space: nowrap;
+
+  color: rgba(216, 207, 192, 0.16);
+
+  font-size: 18px;
+
+  transform:
+    translate(var(--x), var(--y))
+    rotate(var(--r))
+    scale(var(--s));
+}
+
+.systemMenuTitle,
+.systemMenuSection,
+.systemMenuClose {
+  position: relative;
+  z-index: 2;
+}
+
+.systemMenuTitle {
+  margin-bottom: 26px;
+
+  text-align: center;
+
+  font-size: 20px;
+  letter-spacing: 0.28em;
+}
+
+.systemMenuSection {
+  margin-top: 22px;
+}
+
+.systemMenuLabel {
+  margin-bottom: 10px;
+
+  font-size: 12px;
+  letter-spacing: 0.18em;
+
+  opacity: 0.72;
+}
+
+.systemMenuSlider {
+  width: 100%;
+}
+
+.systemMenuFragments {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fragmentUnlocked,
+.fragmentLocked {
+  padding: 10px 12px;
+
+  border: 1px solid rgba(216, 207, 192, 0.18);
+
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.fragmentTitle {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.fragmentText {
+  margin-top: 4px;
+
+  font-size: 13px;
+  opacity: 0.72;
+}
+
+.fragmentLocked {
+  opacity: 0.45;
+}
+
+.systemMenuClose {
+  display: block;
+
+  width: 100%;
+
+  margin-top: 28px;
+  padding: 10px 12px;
+
+  color: #d8cfc0;
+  background: transparent;
+
+  border: 1px solid rgba(216, 207, 192, 0.28);
+
+  font-family: inherit;
+  font-size: 15px;
+
+  cursor: pointer;
+}
+
+.systemMenuClose:hover {
+  background: rgba(216, 207, 192, 0.08);
+}

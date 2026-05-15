@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import "../styles/observerEnd.css";
+
 type Line = {
   speaker: "system" | "girl" | "end";
   text: string;
@@ -97,15 +99,12 @@ function ObserverEnd() {
       )}
 
       <div className="memoryEndBox">
-
         <div className="memoryEndSpeaker">
-
           {current.speaker === "system" &&
             "SYSTEM"}
 
           {current.speaker === "girl" &&
             "羊の仮面の少女"}
-
         </div>
 
         <p className="memoryEndText">
@@ -117,7 +116,6 @@ function ObserverEnd() {
             click to continue
           </div>
         )}
-
       </div>
     </main>
   );

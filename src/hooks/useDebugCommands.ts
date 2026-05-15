@@ -1,4 +1,8 @@
-import { useEffect } from "react";
+import {
+  useEffect,
+  useRef,
+} from "react";
+
 import type { Scene } from "../App";
 
 type UseDebugCommandsProps = {
@@ -20,6 +24,7 @@ type UseDebugCommandsProps = {
 function setDebugTypingStats(
   rank: "unstable" | "medium" | "high"
 ) {
+
   const stat =
     rank === "high"
       ? {
@@ -27,28 +32,34 @@ function setDebugTypingStats(
           missCount: 0,
           elapsedMs: 1500,
           typedLength: 30,
-          completedAt: new Date().toISOString(),
+          completedAt:
+            new Date().toISOString(),
         }
+
       : rank === "medium"
       ? {
           jp: "debug-medium",
           missCount: 2,
           elapsedMs: 5000,
           typedLength: 20,
-          completedAt: new Date().toISOString(),
+          completedAt:
+            new Date().toISOString(),
         }
+
       : {
           jp: "debug-unstable",
           missCount: 20,
           elapsedMs: 20000,
           typedLength: 10,
-          completedAt: new Date().toISOString(),
+          completedAt:
+            new Date().toISOString(),
         };
 
   localStorage.setItem(
     "typingStats",
     JSON.stringify([stat])
   );
+
 }
 
 export function useDebugCommands({
@@ -57,65 +68,203 @@ export function useDebugCommands({
   setScene,
   setSequence,
 }: UseDebugCommandsProps) {
+
+  const groupRef =
+    useRef<string | null>(null);
+
   useEffect(() => {
+
+    const closeDebug = () => {
+      groupRef.current = null;
+      setShowDebug(false);
+    };
+
+    const goScene = (
+      scene: Scene,
+      sequence?: number
+    ) => {
+
+      if (typeof sequence === "number") {
+        setSequence(sequence);
+      }
+
+      setScene(scene);
+
+      closeDebug();
+
+    };
+
     const handleDebug = (
       e: KeyboardEvent
     ) => {
+
       if (
         e.shiftKey &&
         e.key.toLowerCase() === "d"
       ) {
-        setShowDebug((prev) => !prev);
+
+        groupRef.current = null;
+
+        setShowDebug(
+          (prev) => !prev
+        );
+
         return;
+
       }
 
       if (!showDebug) return;
 
-      const key = e.key.toLowerCase();
+      const key =
+        e.key.toLowerCase();
 
-      if (key === "1") {
-        setSequence(0);
-        setScene("intro");
+      if (key === "escape") {
+
+        groupRef.current = null;
+
         setShowDebug(false);
-      } else if (key === "2") {
-        setScene("consoleChapter1End");
-        setShowDebug(false);
-      } else if (key === "3") {
-        setScene("maintenance");
-        setShowDebug(false);
-      } else if (key === "4") {
-        setScene("consoleChapter2Start");
-        setShowDebug(false);
-      } else if (key === "5") {
-        setSequence(6);
-        setScene("chapter2Intro");
-        setShowDebug(false);
-      } else if (key === "6") {
-        setSequence(6);
-        setScene("game");
-        setShowDebug(false);
-      } else if (key === "7") {
-        setScene("consoleEndingChoice");
-        setShowDebug(false);
-      } else if (key === "8") {
-        setScene("executeEnd");
-        setShowDebug(false);
-      } else if (key === "9") {
-        setScene("loopEnd");
-        setShowDebug(false);
-      } else if (key === "u") {
-        setDebugTypingStats("unstable");
-        setScene("consoleEndingChoice");
-        setShowDebug(false);
-      } else if (key === "m") {
-        setDebugTypingStats("medium");
-        setScene("consoleEndingChoice");
-        setShowDebug(false);
-      } else if (key === "h") {
-        setDebugTypingStats("high");
-        setScene("consoleEndingChoice");
-        setShowDebug(false);
+
+        return;
+
       }
+
+      if (["1", "2", "3", "4"].includes(key)) {
+
+       if (
+  ["1", "2", "3", "4"].includes(key) &&
+  groupRef.current === null
+) {
+
+  groupRef.current = key;
+
+  return;
+}
+
+      }
+
+      const group =
+        groupRef.current;
+
+      if (!group) return;
+
+      /* ---------- 1 : MAIN FLOW ---------- */
+
+      if (group === "1") {
+
+        if (key === "1") {
+          goScene("intro", 0);
+        }
+
+        else if (key === "2") {
+          goScene("game", 0);
+        }
+
+        else if (key === "3") {
+          goScene("record", 0);
+        }
+
+        else if (key === "4") {
+          goScene("consoleChapter1End");
+        }
+
+        else if (key === "5") {
+          goScene("maintenance");
+        }
+
+      }
+
+      /* ---------- 2 : CHAPTER 2 ---------- */
+
+      else if (group === "2") {
+
+        if (key === "1") {
+          goScene("consoleChapter2Start");
+        }
+
+        else if (key === "2") {
+          goScene("chapter2Intro");
+        }
+
+        else if (key === "3") {
+          goScene("emotionTuner");
+        }
+
+        else if (key === "4") {
+          goScene("game", 6);
+        }
+
+        else if (key === "5") {
+          goScene("record", 6);
+        }
+
+        else if (key === "6") {
+          goScene("consoleEndingChoice");
+        }
+
+      }
+
+      /* ---------- 3 : ENDINGS ---------- */
+
+      else if (group === "3") {
+
+        if (key === "1") {
+          goScene("memoryEnd");
+        }
+
+        else if (key === "2") {
+          goScene("observerEnd");
+        }
+
+        else if (key === "3") {
+          goScene("shutdownEnd");
+        }
+
+        else if (key === "4") {
+          goScene("loopEnd");
+        }
+
+        else if (key === "5") {
+          goScene("executeEnd");
+        }
+
+      }
+
+      /* ---------- 4 : ENDING DEBUG STATS ---------- */
+
+      else if (group === "4") {
+
+        if (key === "1") {
+
+          setDebugTypingStats(
+            "unstable"
+          );
+
+          goScene("consoleEndingChoice");
+
+        }
+
+        else if (key === "2") {
+
+          setDebugTypingStats(
+            "medium"
+          );
+
+          goScene("consoleEndingChoice");
+
+        }
+
+        else if (key === "3") {
+
+          setDebugTypingStats(
+            "high"
+          );
+
+          goScene("consoleEndingChoice");
+
+        }
+
+      }
+
     };
 
     window.addEventListener(
@@ -124,15 +273,19 @@ export function useDebugCommands({
     );
 
     return () => {
+
       window.removeEventListener(
         "keydown",
         handleDebug
       );
+
     };
+
   }, [
     showDebug,
     setShowDebug,
     setScene,
     setSequence,
   ]);
+
 }
