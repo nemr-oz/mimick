@@ -19,22 +19,11 @@
 .systemMenuPanel {
   position: relative;
 
-  width: 420px;
-  max-width: calc(100vw - 48px);
-
-  padding: 34px 32px 28px;
-
+  width: min(680px, 86vw);
+  max-height: 82vh;
   overflow: hidden;
 
   color: #d8cfc0;
-
-  background: rgba(5, 7, 4, 0.92);
-  border: 1px solid rgba(216, 207, 192, 0.28);
-
-  box-shadow:
-    0 0 50px rgba(0, 0, 0, 0.9);
-
-  z-index: 1;
 }
 
 .systemMenuBackground {
@@ -51,13 +40,12 @@
 
 .systemMenuWord {
   position: absolute;
-
   left: 0;
   top: 0;
 
   white-space: nowrap;
 
-  color: rgba(216, 207, 192, 0.16);
+  color: rgba(216, 207, 192, 0.12);
 
   font-size: 18px;
 
@@ -69,7 +57,9 @@
 
 .systemMenuTitle,
 .systemMenuSection,
-.systemMenuClose {
+.systemMenuClose,
+.archiveView,
+.systemMenuFragments {
   position: relative;
   z-index: 2;
 }
@@ -79,56 +69,70 @@
 
   text-align: center;
 
+  color: rgba(245, 238, 226, 0.95);
+
   font-size: 20px;
   letter-spacing: 0.28em;
+
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.18),
+    0 0 18px rgba(216, 207, 192, 0.12);
 }
 
 .systemMenuSection {
   margin-top: 22px;
 }
 
+/* BGMの項目を一旦消す */
+.systemMenuSection:has(.systemMenuSlider) {
+  display: none;
+}
+
 .systemMenuLabel {
   margin-bottom: 10px;
 
+  color: rgba(230, 222, 210, 0.76);
+
   font-size: 12px;
   letter-spacing: 0.18em;
-
-  opacity: 0.72;
 }
 
 .systemMenuSlider {
-  width: 100%;
+  display: none;
 }
 
 .systemMenuFragments {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 8px;
+
+  margin-bottom: 18px;
+
+  flex-wrap: wrap;
 }
 
-.fragmentUnlocked,
-.fragmentLocked {
-  padding: 10px 12px;
+.systemMenuButton {
+  background: #0a0a0a;
 
-  border: 1px solid rgba(216, 207, 192, 0.18);
+  border: 1px solid #2d2d2d;
 
-  background: rgba(0, 0, 0, 0.28);
-}
+  color: #d4d4d4;
 
-.fragmentTitle {
-  font-size: 13px;
-  letter-spacing: 0.08em;
-}
+  padding: 8px 14px;
 
-.fragmentText {
-  margin-top: 4px;
+  cursor: pointer;
 
   font-size: 13px;
-  opacity: 0.72;
+
+  transition:
+    background 0.15s ease,
+    border 0.15s ease,
+    opacity 0.15s ease;
 }
 
-.fragmentLocked {
-  opacity: 0.45;
+.systemMenuButton:hover {
+  background: #111;
+
+  border-color: #5a5a5a;
 }
 
 .systemMenuClose {
@@ -139,7 +143,7 @@
   margin-top: 28px;
   padding: 10px 12px;
 
-  color: #d8cfc0;
+  color: rgba(245, 238, 226, 0.9);
   background: transparent;
 
   border: 1px solid rgba(216, 207, 192, 0.28);
@@ -152,4 +156,51 @@
 
 .systemMenuClose:hover {
   background: rgba(216, 207, 192, 0.08);
+}
+
+.archiveView {
+  margin-top: 18px;
+
+  border: 1px solid #2a2a2a;
+
+  background: rgba(0, 0, 0, 0.72);
+
+  padding: 18px;
+
+  max-height: 58vh;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.archiveRecord {
+  margin-bottom: 32px;
+}
+
+.archiveTitle {
+  font-size: 13px;
+
+  letter-spacing: 0.08em;
+
+  color: #cfcfcf;
+
+  margin-bottom: 14px;
+
+  border-bottom: 1px solid #2f2f2f;
+
+  padding-bottom: 6px;
+}
+
+.archiveLine {
+  color: #d6d6d6;
+
+  font-size: 14px;
+
+  line-height: 1.9;
+
+  white-space: pre-wrap;
+
+  word-break: break-word;
+
+  opacity: 0.92;
 }

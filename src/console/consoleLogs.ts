@@ -49,8 +49,6 @@ export function getInitialLogs(
         return [
           "> reading velocity : high",
           "> correction noise : low",
-          "> emotional residue detected",
-          "> memory layer available",
         ];
 
       }

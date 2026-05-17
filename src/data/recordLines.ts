@@ -1,4 +1,58 @@
-const recordLines = [
+const firstRecordLines = [
+  {
+    auto: false,
+    lines: [
+      "はい。",
+      "入力は、確認できています。",
+      "このまま、續けてください。",
+    ],
+  },
+
+  {
+    auto: false,
+    lines: [
+      "……",
+      "これから読むものは、",
+      "通常の記録ではありません。",
+      "感情層に接続するための文章です。",
+    ],
+  },
+
+  {
+    auto: false,
+    lines: [
+      "意味を理解する必要はありません。",
+      "正しく感じる必要もありません。",
+      "ただ、文字を追ってください。",
+      "反応があれば、こちらで記録します。",
+    ],
+  },
+
+  {
+    auto: false,
+    lines: [
+      "感情は、",
+      "名前のあるものばかりではありません。",
+      "だから、言葉にします。",
+      "名前を持たないまま、",
+      "消えてしまわないように。",
+    ],
+  },
+
+  {
+    auto: true,
+    lines: [
+      "『入力履歴を保存しています』",
+      "『言語反応を検出しました』",
+      "『感情層への接続を確認しています』",
+      "……",
+      "『接続を維持しています』",
+    ],
+  },
+];
+
+
+const loopRecordLines = [
   {
     auto: false,
     lines: [
@@ -65,16 +119,21 @@ const recordLines = [
     auto: true,
     lines: [
       "『入力履歴を保存しています』",
-
       "『以前の記録を検出しました』",
-
       "『照合しています』",
-
       "……",
-
       "『一致しました』",
     ],
   },
 ];
+
+const loopCount = Number(
+  localStorage.getItem("loopCount") || "0"
+);
+
+const recordLines =
+  loopCount >= 1
+    ? loopRecordLines
+    : firstRecordLines;
 
 export default recordLines;

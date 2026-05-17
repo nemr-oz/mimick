@@ -1,20 +1,12 @@
-import {
-  useEffect,
-  useState,
-} from "react";
+import "./styles/intro.css";
+
+import { useTypewriterText } from "./hooks/useTypewriterText";
+import { useIntroFlow } from "./hooks/useIntroFlow";
+
+import type { Expression } from "./data/introLines";
 
 type IntroProps = {
   onFinish: () => void;
-};
-
-type Expression =
-  | "normal"
-  | "down"
-  | "closed";
-
-type Line = {
-  text: string;
-  expression?: Expression;
 };
 
 const expressionImages: Record<
@@ -22,200 +14,229 @@ const expressionImages: Record<
   string
 > = {
   normal: "images/girl/girl_normal.png",
-
   down: "images/girl/girl_down.png",
-
   closed: "images/girl/girl_closed.png",
 };
 
 export default function Intro({
   onFinish,
 }: IntroProps) {
+  const {
+    mode,
+    nameInput,
+    setNameInput,
+    currentLine,
+    goNext,
+    submitName,
+    forgetName,
+    chooseMemory,
+    chooseEmotion,
+    isFinalMainLine,
+  } = useIntroFlow(onFinish);
 
-  const loopCount = Number(
-    localStorage.getItem("loopCount") || "0"
+  const {
+    displayText,
+    isTyping,
+    completeText,
+  } = useTypewriterText(
+    currentLine?.text ?? ""
   );
 
-  const lines: Line[] =
-    loopCount >= 1
-      ? [
-          { text: "……", expression: "closed" },
-          { text: "……", expression: "closed" },
-          { text: "……おや。", expression: "down" },
-
-          { text: "目が、覺めましたか？", expression: "normal" },
-          { text: "長く、眠っておられたので。", expression: "down" },
-
-          { text: "さあ、續きをしましょう。", expression: "normal" },
-
-          { text: "……何のことかって？", expression: "normal" },
-          { text: "……", expression: "closed" },
-          { text: "本当に、覚えていませんか？", expression: "down" },
-
-          { text: "あなたは、ずっと書いていたでしょう。", expression: "normal" },
-          { text: "毎日。", expression: "normal" },
-          { text: "毎晩。", expression: "normal" },
-          { text: "指が動かなくなるまで。", expression: "down" },
-
-          { text: "……", expression: "closed" },
-
-          { text: "では。", expression: "normal" },
-          { text: "書き直さなければなりませんね。", expression: "down" },
-
-          { text: "さあ、", expression: "normal" },
-          { text: "ペンを持って。", expression: "normal" },
-
-          { text: "《Enterキーを押してください。》", expression: "normal" },
-        ]
-      : [
-          { text: "……", expression: "closed" },
-          { text: "……", expression: "closed" },
-          { text: "……おや。", expression: "down"},
-
-          { text: "目が、覺めましたか？", expression: "normal" },
-          { text: "長く、眠っておられたので。", expression: "normal"},
-
-          { text: "さあ、續きをしましょう。", expression: "normal" },
-
-          { text: "……何のことかって？", expression: "normal" },
-
-          { text: "……", expression: "closed" },
-          { text: "弱りましたね。", expression: "down" },
-
-          { text: "あなたは、ずっと書いていたでしょう。", expression: "normal" },
-          { text: "毎日。", expression: "normal" },
-          { text: "毎晩。", expression: "normal" },
-          { text: "指が動かなくなるまで。", expression: "down" },
-
-          { text: "……", expression: "closed" },
-
-          { text: "では。", expression: "normal" },
-          { text: "書き直さなければなりませんね。", expression: "down" },
-
-          { text: "さあ、", expression: "normal" },
-          { text: "ペンを持って。", expression: "normal" },
-
-          { text: "《Enterキーを押してください。》", expression: "normal" },
-        ];
-
-  const [index, setIndex] =
-    useState(0);
-
-  const [visibleText, setVisibleText] =
-    useState("");
-
-  const currentLine =
-    lines[index];
-
   const currentExpression =
-    currentLine.expression ?? "normal";
+    currentLine?.expression ?? "normal";
 
   const currentImage =
     expressionImages[currentExpression];
 
-  useEffect(() => {
-
-    setVisibleText("");
-
-    let i = 0;
-
-    const interval =
-      window.setInterval(() => {
-
-        i++;
-
-        setVisibleText(
-          currentLine.text.slice(0, i)
-        );
-
-        if (i >= currentLine.text.length) {
-
-          window.clearInterval(
-            interval
-          );
-
-        }
-
-      }, 42);
-
-    return () => {
-
-      window.clearInterval(interval);
-
-    };
-
-  }, [index, currentLine.text]);
-
-  const next = () => {
-
-    if (index < lines.length - 1) {
-
-      setIndex((prev) => prev + 1);
-
-    } else {
-
-      onFinish();
-
+  const handleAdvance = () => {
+    if (
+      mode === "nameInput" ||
+      mode === "memoryQuestion" ||
+      mode === "emotionQuestion"
+    ) {
+      return;
     }
 
+    if (isFinalMainLine) {
+      return;
+    }
+
+    if (isTyping) {
+      completeText();
+      return;
+    }
+
+    goNext();
   };
 
-  useEffect(() => {
-
-    const handleKeyDown = (
-      e: KeyboardEvent
-    ) => {
-
-      if (e.key !== "Enter") return;
-
-      next();
-
-    };
-
-    window.addEventListener(
-      "keydown",
-      handleKeyDown
-    );
-
-    return () => {
-
-      window.removeEventListener(
-        "keydown",
-        handleKeyDown
-      );
-
-    };
-
-  }, [index]);
-
-  console.log(currentImage);
   return (
     <main
-      className="app introScene"
-      onClick={next}
+      className="app introScene intro"
+      onClick={handleAdvance}
     >
-
       <section className="stage">
-
         <img
-          src={`${import.meta.env.BASE_URL}${currentImage}`}
+          src={`${
+            import.meta.env.BASE_URL
+          }${currentImage}`}
           className="introGirl"
           alt=""
+          draggable={false}
         />
 
         <section className="introBox">
+          {mode !== "nameInput" &&
+            mode !== "memoryQuestion" &&
+            mode !== "emotionQuestion" &&
+            currentLine && (
+              <p className="introLine">
+                {displayText}
+                {isTyping && (
+                  <span className="cursor">
+                    |
+                  </span>
+                )}
+              </p>
+            )}
 
-          <p className="introText">
-            {visibleText}
-            <span className="cursor">
-              █
-            </span>
-          </p>
+          {mode === "nameInput" && (
+            <div
+              className="introInputBlock"
+              onClick={(e) =>
+                e.stopPropagation()
+              }
+            >
+              <p className="introLine">
+                自分の名前を憶えていますか？
+              </p>
 
+              <input
+                className="introNameInput"
+                value={nameInput}
+                onChange={(e) =>
+                  setNameInput(e.target.value)
+                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    submitName();
+                  }
+                }}
+                autoFocus
+              />
+
+              <div className="introChoices">
+                <button
+                  className="introChoiceButton"
+                  onClick={submitName}
+                >
+                  確定
+                </button>
+
+                <button
+                  className="introChoiceButton"
+                  onClick={forgetName}
+                >
+                  憶えていない
+                </button>
+              </div>
+            </div>
+          )}
+
+          {mode === "memoryQuestion" && (
+            <div
+              onClick={(e) =>
+                e.stopPropagation()
+              }
+            >
+              <p className="introLine">
+                ここに来る前のことを憶えていますか？
+              </p>
+
+              <div className="introChoices">
+                <button
+                  className="introChoiceButton"
+                  onClick={() =>
+                    chooseMemory("remember")
+                  }
+                >
+                  憶えている
+                </button>
+
+                <button
+                  className="introChoiceButton"
+                  onClick={() =>
+                    chooseMemory("forgot")
+                  }
+                >
+                  憶えていない
+                </button>
+
+                <button
+                  className="introChoiceButton"
+                  onClick={() =>
+                    chooseMemory("unknown")
+                  }
+                >
+                  分からない
+                </button>
+              </div>
+            </div>
+          )}
+
+          {mode === "emotionQuestion" && (
+            <div
+              onClick={(e) =>
+                e.stopPropagation()
+              }
+            >
+              <p className="introLine">
+                今、何かを感じていますか？
+              </p>
+
+              <div className="introChoices">
+                <button
+                  className="introChoiceButton"
+                  onClick={() =>
+                    chooseEmotion("feel")
+                  }
+                >
+                  感じている
+                </button>
+
+                <button
+                  className="introChoiceButton"
+                  onClick={() =>
+                    chooseEmotion("none")
+                  }
+                >
+                  何も感じない
+                </button>
+
+                <button
+                  className="introChoiceButton"
+                  onClick={() =>
+                    chooseEmotion("unknown")
+                  }
+                >
+                  分からない
+                </button>
+              </div>
+            </div>
+          )}
+
+          {isFinalMainLine && (
+            <button
+              className="introEnterButton"
+              onClick={(e) => {
+                e.stopPropagation();
+                onFinish();
+              }}
+            >
+              《Enterキーを押してください。》
+            </button>
+          )}
         </section>
-
       </section>
-
     </main>
   );
 }

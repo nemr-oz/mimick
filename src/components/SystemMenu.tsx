@@ -1,17 +1,15 @@
-import type {
-  Dispatch,
-  SetStateAction,
+import {
+  useState,
+  type Dispatch,
+  type SetStateAction,
 } from "react";
 
 import "../styles/systemMenu.css";
+
 import ConsoleSpill from "../console/ConsoleSpill";
 
-type Fragment = {
-  id: string;
-  title: string;
-  text: string;
-  unlocked: boolean;
-};
+import RS01 from "../archive/RS01";
+import RS02 from "../archive/RS02";
 
 type SystemMenuProps = {
   isOpen: boolean;
@@ -23,8 +21,6 @@ type SystemMenuProps = {
   setBgmVolume: Dispatch<
     SetStateAction<number>
   >;
-
-  fragments: Fragment[];
 };
 
 export default function SystemMenu({
@@ -32,119 +28,140 @@ export default function SystemMenu({
   onClose,
   bgmVolume,
   setBgmVolume,
-  fragments,
 }: SystemMenuProps) {
+  const [mode, setMode] = useState<
+    "settings" | "archive"
+  >("settings");
+
+  const [selectedRecord, setSelectedRecord] =
+    useState<"RS01" | "RS02">("RS01");
 
   if (!isOpen) return null;
 
+  const unlockedRecords = JSON.parse(
+    localStorage.getItem("unlockedRecords") ||
+      '["record_sector_01"]'
+  ) as string[];
+
+  const rs02Unlocked =
+    unlockedRecords.includes(
+      "record_sector_02"
+    );
+
+  const currentRecord =
+    selectedRecord === "RS02" && rs02Unlocked
+      ? RS02
+      : RS01;
+
+  const currentRecordTitle =
+    selectedRecord === "RS02" && rs02Unlocked
+      ? "record_sector_02"
+      : "record_sector_01";
+
   return (
-
     <div className="systemMenuOverlay">
-
       <div className="systemMenuPanel">
-
         <ConsoleSpill />
 
-        <div className="systemMenuBackground">
+        <div className="systemMenuTitle">
+          SYSTEM
+        </div>
 
-          {fragments.map(
-            (fragment, i) => (
+        {mode === "settings" && (
+          <>
+            <div className="systemMenuSection">
+              <div className="systemMenuLabel">
+                BGM VOLUME
+              </div>
 
-              <span
-                key={fragment.id}
-                className="systemMenuWord"
-                style={
-                  {
-                    "--x":
-                      `${Math.sin(i * 1.7) * 180}px`,
+              <input
+                className="systemMenuSlider"
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={bgmVolume}
+                onChange={(e) =>
+                  setBgmVolume(
+                    Number(e.target.value)
+                  )
+                }
+              />
+            </div>
 
-                    "--y":
-                      `${Math.cos(i * 1.3) * 140}px`,
-
-                    "--r":
-                      `${i * 21 - 90}deg`,
-
-                    "--s":
-                      `${0.8 + (i % 4) * 0.15}`,
-                  } as React.CSSProperties
+            <div className="systemMenuSection">
+              <button
+                className="systemMenuButton"
+                onClick={() =>
+                  setMode("archive")
                 }
               >
-                {fragment.unlocked
-                  ? fragment.text
-                  : "missing"}
-              </span>
+                archive
+              </button>
+            </div>
+          </>
+        )}
 
-            )
-          )}
+        {mode === "archive" && (
+          <div className="systemMenuSection">
+            <div className="systemMenuLabel">
+              ARCHIVE
+            </div>
 
-        </div>
+            <div className="systemMenuFragments">
+              <button
+                className="systemMenuButton"
+                onClick={() =>
+                  setSelectedRecord("RS01")
+                }
+              >
+                record_sector_01
+              </button>
 
-        <div className="systemMenuTitle">
-          SETTINGS
-        </div>
+              <button
+                className="systemMenuButton"
+                disabled={!rs02Unlocked}
+                onClick={() => {
+                  if (!rs02Unlocked) return;
+                  setSelectedRecord("RS02");
+                }}
+              >
+                {rs02Unlocked
+                  ? "record_sector_02"
+                  : "record_sector_02 / LOCKED"}
+              </button>
+            </div>
 
-        <div className="systemMenuSection">
-
-          <div className="systemMenuLabel">
-            BGM VOLUME
-          </div>
-
-          <input
-            className="systemMenuSlider"
-            type="range"
-            min="0"
-            max="1"
-            step="0.01"
-            value={bgmVolume}
-            onChange={(e) =>
-              setBgmVolume(
-                Number(e.target.value)
-              )
-            }
-          />
-
-        </div>
-
-        <div className="systemMenuSection">
-
-          <div className="systemMenuLabel">
-            MEMORY FRAGMENTS
-          </div>
-
-          <div className="systemMenuFragments">
-
-            {fragments.map(
-              (fragment) => (
-
-                <div
-                  key={fragment.id}
-                  className={
-                    fragment.unlocked
-                      ? "fragmentUnlocked"
-                      : "fragmentLocked"
-                  }
-                >
-
-                  <div className="fragmentTitle">
-                    {fragment.title}
+            <div className="fragmentUnlocked">
+              <div className="archiveView">
+                <div className="archiveRecord">
+                  <div className="archiveTitle">
+                    {currentRecordTitle}
                   </div>
 
-                  <div className="fragmentText">
-
-                    {fragment.unlocked
-                      ? fragment.text
-                      : "████████"}
-
+                  <div className="archiveLine">
+                    {currentRecord.map(
+                      (line, i) => (
+                        <div key={i}>
+                          {line}
+                        </div>
+                      )
+                    )}
                   </div>
-
                 </div>
+              </div>
+            </div>
 
-              )
-            )}
-
+            <button
+              className="systemMenuButton"
+              onClick={() =>
+                setMode("settings")
+              }
+            >
+              back
+            </button>
           </div>
-
-        </div>
+        )}
 
         <button
           className="systemMenuClose"
@@ -152,11 +169,7 @@ export default function SystemMenu({
         >
           return
         </button>
-
       </div>
-
     </div>
-
   );
-
 }

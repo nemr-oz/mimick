@@ -5,7 +5,6 @@ import aoNeko2 from "../data/aoNeko2";
 import aoNeko3 from "../data/aoNeko3";
 import aoNeko4 from "../data/aoNeko4";
 import aoNeko5 from "../data/aoNeko5";
-import aoNekoSpecial from "../data/aoNekoSpecial";
 
 type Chapter1Props = {
   sequence: number;
@@ -18,7 +17,6 @@ const chapter1Data = [
   aoNeko3,
   aoNeko4,
   aoNeko5,
-  aoNekoSpecial,
 ];
 
 function Chapter1({
@@ -26,7 +24,12 @@ function Chapter1({
   onFinish,
 }: Chapter1Props) {
   const data =
-    chapter1Data[sequence] || aoNeko1;
+    chapter1Data[sequence];
+
+  if (!data) {
+    onFinish();
+    return null;
+  }
 
   return (
     <Game

@@ -128,7 +128,7 @@ export default function MemoryEnd() {
       {current.speaker !== "system" &&
         current.speaker !== "end" && (
           <img
-            src={`${import.meta.env.BASE_URL}girl.png`}
+            src={`${import.meta.env.BASE_URL}images/girl/girl_normal.png`}
             alt=""
             className="memoryEndGirl"
           />

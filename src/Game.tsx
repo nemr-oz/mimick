@@ -54,6 +54,9 @@ function Game({
   const startTimeRef =
     useRef<number | null>(null);
 
+  const hasFinishedRef =
+    useRef(false);
+
   const current = data?.[index];
 
   const targetCandidates = useMemo(() => {
@@ -114,10 +117,13 @@ function Game({
     missCountRef.current = 0;
 
     startTimeRef.current = null;
+
+    hasFinishedRef.current = false;
   }, [data]);
 
   useEffect(() => {
-    if (!current) {
+    if (!current && !hasFinishedRef.current) {
+      hasFinishedRef.current = true;
       onFinish();
     }
   }, [current, onFinish]);

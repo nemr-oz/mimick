@@ -3,7 +3,7 @@ import {
   useRef,
 } from "react";
 
-import type { Scene } from "../App";
+import type { Scene } from "../scenes/sceneTypes";
 
 type UseDebugCommandsProps = {
   showDebug: boolean;
@@ -120,25 +120,20 @@ export function useDebugCommands({
 
       if (key === "escape") {
 
-        groupRef.current = null;
-
-        setShowDebug(false);
+        closeDebug();
 
         return;
 
       }
 
-      if (["1", "2", "3", "4"].includes(key)) {
+      if (
+        ["1", "2", "3", "4"].includes(key) &&
+        groupRef.current === null
+      ) {
 
-       if (
-  ["1", "2", "3", "4"].includes(key) &&
-  groupRef.current === null
-) {
+        groupRef.current = key;
 
-  groupRef.current = key;
-
-  return;
-}
+        return;
 
       }
 
@@ -167,10 +162,6 @@ export function useDebugCommands({
           goScene("consoleChapter1End");
         }
 
-        else if (key === "5") {
-          goScene("maintenance");
-        }
-
       }
 
       /* ---------- 2 : CHAPTER 2 ---------- */
@@ -178,26 +169,22 @@ export function useDebugCommands({
       else if (group === "2") {
 
         if (key === "1") {
-          goScene("consoleChapter2Start");
-        }
-
-        else if (key === "2") {
           goScene("chapter2Intro");
         }
 
-        else if (key === "3") {
+        else if (key === "2") {
           goScene("emotionTuner");
         }
 
-        else if (key === "4") {
+        else if (key === "3") {
           goScene("game", 6);
         }
 
-        else if (key === "5") {
+        else if (key === "4") {
           goScene("record", 6);
         }
 
-        else if (key === "6") {
+        else if (key === "5") {
           goScene("consoleEndingChoice");
         }
 

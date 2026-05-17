@@ -1,0 +1,331 @@
+/* src/styles/doNotLook.css */
+
+.doNotLook {
+  position: relative;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 35%,
+      rgba(28, 42, 55, 0.45),
+      transparent 34%
+    ),
+    linear-gradient(
+      180deg,
+      #050704 0%,
+      #080b0a 58%,
+      #030403 100%
+    );
+
+  color: #d8cfc0;
+
+  font-family:
+    "MS Mincho",
+    "Yu Mincho",
+    serif;
+
+  user-select: none;
+}
+
+/* noise */
+
+.doNotLookNoise {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.12;
+
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.04) 0,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.02) 0,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+
+  z-index: 20;
+}
+
+/* header */
+
+.doNotLookHeader {
+  position: absolute;
+
+  left: 32px;
+  right: 32px;
+  top: 24px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  z-index: 30;
+
+  font-family:
+    Consolas,
+    "Courier New",
+    monospace;
+
+  letter-spacing: 0.08em;
+}
+
+.doNotLookTitle {
+  font-size: 15px;
+  color: #c9c0b0;
+  opacity: 0.86;
+}
+
+.doNotLookMeta {
+  display: flex;
+  gap: 24px;
+
+  font-size: 13px;
+  color: #8f8778;
+
+  opacity: 0.82;
+}
+
+/* body */
+
+.doNotLookBody {
+  position: absolute;
+  inset: 0;
+
+  overflow: hidden;
+}
+
+/* target image wrapper */
+
+.doNotLookTargetWrap {
+  position: absolute;
+
+  left: 50%;
+  top: 44%;
+
+  transform: translate(-50%, -50%);
+
+  height: 74vh;
+  width: max-content;
+
+  z-index: 5;
+}
+
+.doNotLookTarget {
+  display: block;
+
+  height: 100%;
+  width: auto;
+
+  opacity: 0.9;
+
+  pointer-events: none;
+
+  filter:
+    drop-shadow(0 0 14px rgba(47, 103, 216, 0.1))
+    contrast(1.04)
+    saturate(0.88);
+}
+
+/* forbidden points */
+
+.doNotLookEyePoint {
+    display: none;
+    
+  position: absolute;
+
+  width: 10px;
+  height: 10px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 999px;
+
+  background: rgba(255, 64, 156, 0.85);
+
+  box-shadow:
+    0 0 8px rgba(255, 64, 156, 0.7),
+    0 0 18px rgba(255, 64, 156, 0.45);
+
+  pointer-events: none;
+
+  z-index: 12;
+}
+
+/* cursor */
+
+.doNotLookCursor {
+  position: absolute;
+
+  width: 24px;
+  height: 24px;
+
+  transform: translate(-50%, -50%);
+
+  border: 1px solid rgba(216, 207, 192, 0.9);
+  border-radius: 999px;
+
+  background: rgba(216, 207, 192, 0.05);
+
+  box-shadow:
+    0 0 8px rgba(216, 207, 192, 0.35),
+    inset 0 0 8px rgba(216, 207, 192, 0.18);
+
+  pointer-events: none;
+
+  z-index: 40;
+}
+
+.doNotLookCursor::before,
+.doNotLookCursor::after {
+  content: "";
+
+  position: absolute;
+
+  background: rgba(216, 207, 192, 0.75);
+}
+
+.doNotLookCursor::before {
+  left: 50%;
+  top: -6px;
+
+  width: 1px;
+  height: 36px;
+
+  transform: translateX(-50%);
+}
+
+.doNotLookCursor::after {
+  left: -6px;
+  top: 50%;
+
+  width: 36px;
+  height: 1px;
+
+  transform: translateY(-50%);
+}
+
+/* start button */
+
+.doNotLookStart {
+  position: absolute;
+
+  left: 50%;
+  bottom: 12%;
+
+  transform: translateX(-50%);
+
+  padding: 10px 22px;
+
+  border: 1px solid rgba(216, 207, 192, 0.48);
+
+  background: rgba(5, 7, 4, 0.72);
+
+  color: #d8cfc0;
+
+  font-family:
+    Consolas,
+    "Courier New",
+    monospace;
+
+  font-size: 13px;
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+
+  z-index: 45;
+}
+
+.doNotLookStart:hover {
+  border-color: rgba(255, 64, 156, 0.7);
+  color: #ffd9eb;
+}
+
+/* footer */
+
+.doNotLookFooter {
+  position: absolute;
+
+  left: 50%;
+  bottom: 36px;
+
+  width: min(620px, calc(100vw - 48px));
+
+  transform: translateX(-50%);
+
+  z-index: 35;
+}
+
+.doNotLookMessage {
+  margin-bottom: 12px;
+
+  text-align: center;
+
+  font-family:
+    Consolas,
+    "Courier New",
+    monospace;
+
+  font-size: 13px;
+  letter-spacing: 0.08em;
+
+  color: #bdb5a4;
+
+  opacity: 0.9;
+}
+
+.doNotLookBar {
+  width: 100%;
+  height: 6px;
+
+  border: 1px solid rgba(216, 207, 192, 0.28);
+
+  background: rgba(0, 0, 0, 0.35);
+
+  overflow: hidden;
+}
+
+.doNotLookBarFill {
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    rgba(112, 136, 180, 0.65),
+    rgba(255, 64, 156, 0.86)
+  );
+
+  transition: width 0.12s linear;
+}
+
+/* when looking */
+
+.doNotLookLooking .doNotLookNoise {
+  opacity: 0.2;
+}
+
+.doNotLookLooking .doNotLookMessage {
+  color: #ffd9eb;
+}
+
+/* finished */
+
+.doNotLookFinished .doNotLookCursor {
+  opacity: 0;
+}
+
+.doNotLookFinished .doNotLookEyePoint {
+  opacity: 0;
+}

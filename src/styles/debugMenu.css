@@ -1,0 +1,52 @@
+.debugMenu {
+  position: fixed;
+  right: 24px;
+  top: 24px;
+  z-index: 99999;
+
+  width: 280px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+
+  padding: 16px;
+
+  background: rgba(5, 7, 6, 0.92);
+  border: 1px solid rgba(216, 207, 192, 0.35);
+
+  color: #d8cfc0;
+
+  font-family: Consolas, "MS Gothic", monospace;
+  font-size: 12px;
+  line-height: 1.5;
+
+  box-shadow: 0 0 24px rgba(0, 0, 0, 0.55);
+}
+
+.debugMenu p {
+  margin: 4px 0;
+  opacity: 0.82;
+}
+
+.debugMenu button {
+  display: block;
+
+  width: 100%;
+  margin: 4px 0;
+  padding: 4px 8px;
+
+  background: transparent;
+  border: 1px solid rgba(216, 207, 192, 0.25);
+
+  color: #d8cfc0;
+
+  font-family: inherit;
+  font-size: 12px;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.debugMenu button:hover {
+  background: rgba(216, 207, 192, 0.08);
+  border-color: rgba(216, 207, 192, 0.55);
+}

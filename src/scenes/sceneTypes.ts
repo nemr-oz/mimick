@@ -1,0 +1,17 @@
+export type Scene =
+  | "intro"
+  | "game"
+  | "record"
+  | "consoleChapter1End"
+  | "chapter2Intro"
+  | "emotionTuner"
+  | "chapter2"
+  | "consoleEndingChoice"
+  | "memoryEnd"
+  | "observerEnd"
+  | "shutdownEnd"
+  | "loopEnd"
+  | "executeEnd"
+  | "eyePicker"
+  | "doNotLook"
+  | "archiveUnlock";

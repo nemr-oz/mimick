@@ -36,6 +36,7 @@ function FakeConsole({
   onForbidden,
   phase,
 }: FakeConsoleProps) {
+
   const [input, setInput] =
     useState("");
 
@@ -51,87 +52,98 @@ function FakeConsole({
     );
 
   useEffect(() => {
+
     const timeouts: number[] = [];
 
     if (phase === "chapter1End") {
+
       timeouts.push(
         window.setTimeout(() => {
+
           setLogs((prev) => [
             ...prev,
             "> observer opened console",
           ]);
+
         }, 2500)
       );
 
       timeouts.push(
         window.setTimeout(() => {
+
           setLogs((prev) => [
             ...prev,
             "> observer is reading this",
           ]);
+
         }, 5200)
       );
 
       timeouts.push(
         window.setTimeout(() => {
-          setLogs((prev) => [
-            ...prev,
-            "> previous maintenance log available",
-          ]);
-        }, 8500)
+
+          onContinue?.();
+
+        }, 8200)
       );
 
-      timeouts.push(
-        window.setTimeout(() => {
-          setLogs((prev) => [
-            ...prev,
-            "> type 'continue'",
-          ]);
-        }, 11000)
-      );
     } else if (
       phase === "chapter2Start"
     ) {
+
       timeouts.push(
         window.setTimeout(() => {
+
           setLogs((prev) => [
             ...prev,
             "> compatibility not guaranteed",
           ]);
+
         }, 2400)
       );
 
       timeouts.push(
         window.setTimeout(() => {
+
           setLogs((prev) => [
             ...prev,
             "> type 'continue'",
           ]);
+
         }, 5000)
       );
+
     } else {
+
       timeouts.push(
         window.setTimeout(() => {
+
           setLogs((prev) => [
             ...prev,
             "",
             "> hidden command available",
             "> type 'hint'",
           ]);
+
         }, 2400)
       );
+
     }
 
     return () => {
+
       timeouts.forEach((timeout) =>
         clearTimeout(timeout)
       );
+
     };
-  }, [phase]);
+
+  }, [phase, onContinue]);
 
   const handleSubmit = (
     e: React.FormEvent<HTMLFormElement>
   ) => {
+
     e.preventDefault();
 
     runConsoleCommand({
@@ -146,18 +158,24 @@ function FakeConsole({
       onUnstable,
       onForbidden,
     });
+
   };
 
   const handleClose = () => {
+
     setLogs((prev) => [
       ...prev,
       "> console close denied",
     ]);
+
   };
 
   return (
+
     <div className="fakeConsole">
+
       <div className="consoleHeader">
+
         RECORD CONSOLE
 
         <button
@@ -166,14 +184,17 @@ function FakeConsole({
         >
           ×
         </button>
+
       </div>
 
       <div className="consoleBody">
+
         {logs.map((log, i) => (
           <p key={i}>{log}</p>
         ))}
 
         <form onSubmit={handleSubmit}>
+
           <span>&gt; </span>
 
           <input
@@ -184,10 +205,15 @@ function FakeConsole({
             }
             autoFocus
           />
+
         </form>
+
       </div>
+
     </div>
+
   );
+
 }
 
 export default FakeConsole;

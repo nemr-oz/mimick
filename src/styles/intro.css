@@ -47,7 +47,6 @@
 /* text */
 
 
-/* text */
 
 .introBox {
   position: absolute;
@@ -133,3 +132,81 @@
     opacity: 0;
   }
 }
+
+.introText button {
+  margin-right: 12px;
+  padding: 6px 14px;
+
+  border: 1px solid rgba(216, 207, 192, 0.45);
+  background: rgba(5, 7, 4, 0.72);
+  color: #d8cfc0;
+
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.introText input {
+  width: 240px;
+  margin-right: 12px;
+  padding: 6px 10px;
+
+  border: 1px solid rgba(216, 207, 192, 0.45);
+  background: rgba(5, 7, 4, 0.72);
+  color: #d8cfc0;
+
+  font-family: inherit;
+  outline: none;
+}
+
+.introInputBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.introNameInput {
+  width: 260px;
+  padding: 8px 12px;
+
+  border: 1px solid rgba(216, 207, 192, 0.45);
+  background: rgba(5, 7, 4, 0.82);
+  color: #d8cfc0;
+
+  font-family:
+    "MS Mincho",
+    "Yu Mincho",
+    serif;
+
+  font-size: 16px;
+  letter-spacing: 0.08em;
+
+  outline: none;
+}
+
+
+
+.introChoices {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.introChoiceButton {
+  padding: 6px 16px;
+
+  border: 1px solid rgba(216, 207, 192, 0.42);
+  background: rgba(5, 7, 4, 0.82);
+  color: #d8cfc0;
+
+  font-family:
+    "MS Mincho",
+    "Yu Mincho",
+    serif;
+
+  font-size: 14px;
+  letter-spacing: 0.08em;
+
+  cursor: pointer;
+}
+
